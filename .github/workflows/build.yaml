@@ -1,4 +1,8 @@
 name: Build
+
+on:
+  workflow_dispatch:
+  
 on:
   push:
     branches: [ main ]
@@ -41,3 +45,12 @@ jobs:
           name: PatchLog
           path: ./Patch.log
 
+uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          draft: true
+          title: "Release ${{ env.date_now }}"
+          files: |
+            build/*.apk
+            vanced-microG.apk
